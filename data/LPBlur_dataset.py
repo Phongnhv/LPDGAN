@@ -22,6 +22,9 @@ class LPBlurDataset(Dataset):
         self.sharp = glob(os.path.join(self.files_b, '*.jpg'))
         assert len(self.blur) == len(self.sharp)
 
+        self.blur = self.blur[:1000]
+        self.sharp = self.sharp[:1000]
+
         if self.opt.mode == 'train':
             df = pd.read_csv(os.path.join(opt.dataroot, 'plate_info.txt'), header=None,
                              names=['ImageName', 'PlateInfo'])
@@ -46,6 +49,7 @@ class LPBlurDataset(Dataset):
     def __getitem__(self, idx):
         blur_image = Image.open(self.blur[idx])
         sharp_image = Image.open(self.sharp[idx])
+        
         blur_image = np.array(blur_image)
         sharp_image = np.array(sharp_image)
 
@@ -77,6 +81,10 @@ class LPBlurDataset(Dataset):
                 print(f"Error restoring array: {e}")
 
             plate_info = torch.from_numpy(plate_info)
+            if plate_info.shape[0] == 0:
+                #print(f"Warning: Plate info for image {os.path.basename(self.sharp[idx])} is missing or empty.")
+                    # Handle the missing plate info, e.g., skip the image or set a default value
+                plate_info = torch.zeros(1)
 
             return {'A': blur_image, 'B': sharp_image, 'A_paths': self.blur[idx], 'B_paths': self.sharp[idx],
                     'A1': blur_image1, 'B1': sharp_image1, 'A2': blur_image2, 'B2': sharp_image2, 'A3': blur_image3,
