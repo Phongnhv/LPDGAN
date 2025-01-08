@@ -1,4 +1,5 @@
 # LPDGAN
+<<<<<<< HEAD
 
 
 ### A Dataset and Model for Realistic License Plate Deblurring [[Paper Link]](https://arxiv.org/abs/2404.13677)
@@ -48,3 +49,8 @@ If you have any question, please email m.g.haoyan@gmail.com.
 
 
 
+=======
+This is a school project based on LPDGan, which is belong to haoyGONG.
+
+Link to the project: https://github.com/haoyGONG/LPDGAN.git
+>>>>>>> 50695445469891d8a4d5f011ad3559372fba1bb3
