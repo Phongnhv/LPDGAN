@@ -81,6 +81,7 @@ class LPBlurDataset(Dataset):
                 print(f"Error restoring array: {e}")
 
             plate_info = torch.from_numpy(plate_info)
+            print(plate_info.shape)
             if plate_info.shape[0] == 0:
                 #print(f"Warning: Plate info for image {os.path.basename(self.sharp[idx])} is missing or empty.")
                     # Handle the missing plate info, e.g., skip the image or set a default value
